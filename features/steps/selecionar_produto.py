@@ -1,4 +1,3 @@
-import time
 from behave import given, when, then
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -75,3 +74,17 @@ def step_impl(context, mensagem):
 
     #teardown/encerramento
     context.driver.quit()
+
+@then(u'adiciono um produto ao carrinho')
+def step_impl(context):
+    assert context.driver.find_element(By.CSS_SELECTOR, ".inventory_item_name").text == 'Sauce Labs Backpack'
+    assert context.driver.find_element(By.CSS_SELECTOR, ".inventory_item_price").text == '$29.99'
+    context.driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click()
+    context.driver.find_element(By.CSS_SELECTOR, ".shopping_cart_badge").click()
+    assert context.driver.find_element(By.CSS_SELECTOR, ".title").text == 'Your Cart'
+    assert context.driver.find_element(By.CSS_SELECTOR, ".inventory_item_name").text == 'Sauce Labs Backpack'
+    assert context.driver.find_element(By.CSS_SELECTOR, ".cart_quantity").text == "1"
+    assert context.driver.find_element(By.CSS_SELECTOR, ".inventory_item_price").text == '$29.99'
+    context.driver.find_element(By.ID, "remove-sauce-labs-backpack").click()
+    context.driver.find_element(By.ID, "react-burger-menu-btn").click()
+    context.driver.find_element(By.ID, "logout_sidebar_link").click()

@@ -41,3 +41,8 @@ Feature: Selecionar Produto
         | 06 | <branco>      | <branco>     | Epic sadface: Username is required                                        |
         | 07 | standard_use  | secret_sace  | Epic sadface: Username and password do not match any user in this service |
         | 08 | <branco>      | secret_sace  | Epic sadface: Username is required                                        |
+    
+    Scenario: Validar produto no carrinho
+        Given que entro no site Sauce Demo
+        When preencho os campos de login com usuario standard_user e senha secret_sauce
+        Then adiciono um produto ao carrinho
